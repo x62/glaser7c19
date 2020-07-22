@@ -2,9 +2,13 @@
   import requests from "../data/requests.js";
   export async function preload() {
     try {
+      throw new Error("this is bad");
       const usStats = await requests.usStats();
       return { usStats };
-    } catch (e) {}
+    } catch (e) {
+      this.error(500, "There was an error calling the API, try again, idiot");
+      return;
+    }
   }
 </script>
 
