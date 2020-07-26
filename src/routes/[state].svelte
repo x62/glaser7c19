@@ -8,9 +8,11 @@
       this.error(404, "State Not Found");
       return;
     }
+    const fullStateName = stateNames.find(s => s.abbreviation === state).name;
     try {
       const stats = await requests.stateStats(state);
-      return { state, stats };
+      const historic = await requests.historicState(state);
+      return { state: fullStateName, stats, historic };
     } catch (e) {
       console.log(e);
       this.error(
@@ -28,6 +30,7 @@
   import TableContainer from "../components/TableContainer.svelte";
   export let state;
   export let stats;
+  export let historic;
 </script>
 
 <svelte:head>
@@ -42,4 +45,4 @@
 
 <CovidStat {...stats} />
 
-<CovidChart />
+<CovidChart historicData={historic} title="Covid 19 - {state}" />
