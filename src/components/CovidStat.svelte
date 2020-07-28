@@ -1,12 +1,12 @@
 <script>
-  export let cases,
-    deaths,
-    recovered,
-    ventilator,
-    hospitalized,
-    icu,
-    tested,
-    updated;
+  export let cases;
+  export let deaths;
+  export let recovered;
+  export let hospitalized;
+  export let ventilator;
+  export let icu;
+  export let tested;
+  export let updated;
 </script>
 
 <style>

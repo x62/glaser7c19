@@ -1,12 +1,13 @@
 <script context="module">
   import requests from "../data/requests.js";
+
   export async function preload() {
     try {
       const usStats = await requests.usStats();
       const historic = await requests.historicUS();
-      return { usStats, historic };
+      const statesData = await requests.statesData();
+      return { usStats, historic, statesData };
     } catch (e) {
-      console.log(e);
       this.error(
         500,
         "There was an error in calling the api, please try again in 5 minutes."
@@ -18,12 +19,14 @@
 
 <script>
   import CovidStat from "../components/CovidStat.svelte";
+
   import CovidChart from "../components/CovidChart.svelte";
+
   import TableContainer from "../components/TableContainer.svelte";
+
   export let usStats;
   export let historic;
-  console.log(historic, "historic");
-  console.log(usStats, "usStats");
+  export let statesData;
 </script>
 
 <svelte:head>
@@ -40,4 +43,4 @@
 
 <CovidChart historicData={historic} title="US Covid-19" />
 
-<TableContainer />
+<TableContainer data={statesData} />
